@@ -9,7 +9,7 @@ using Color = System.Windows.Media.Color;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace Captura
+namespace Captura.ViewModels
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class RegionSelectorViewModel : NotifyPropertyChanged
@@ -201,5 +201,7 @@ namespace Captura
         public ICommand DecreaseWidthCommand { get; }
         public ICommand IncreaseHeightCommand { get; }
         public ICommand DecreaseHeightCommand { get; }
+
+        public ReactiveCommand ClearAllDrawingsCommand { get; } = new ReactiveCommand();
     }
 }

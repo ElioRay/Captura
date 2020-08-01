@@ -6,7 +6,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Linq;
-using Captura.Models;
+using Captura.Audio;
+using Captura.FFmpeg;
+using Captura.Imgur;
+using Captura.MouseKeyHook;
+using Captura.Video;
+using Captura.Windows;
 
 namespace Captura
 {
@@ -227,6 +232,12 @@ namespace Captura
         }
 
         public bool IncludeCursor
+        {
+            get => Get(true);
+            set => Set(value);
+        }
+
+        public bool RegionPickerHotkeyAutoStartRecording
         {
             get => Get(true);
             set => Set(value);

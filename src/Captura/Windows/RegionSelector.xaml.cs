@@ -5,6 +5,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Captura.ViewModels;
 using Color = System.Windows.Media.Color;
 using Cursors = System.Windows.Input.Cursors;
 
@@ -34,6 +35,10 @@ namespace Captura
             ViewModel
                 .SelectedTool
                 .Subscribe(OnToolChange);
+
+            ViewModel
+                .ClearAllDrawingsCommand
+                .Subscribe(() => InkCanvas.Strokes.Clear());
 
             InkCanvas.DefaultDrawingAttributes.FitToCurve = true;
         }

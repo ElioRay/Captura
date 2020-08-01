@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Captura.Models
+namespace Captura.MouseKeyHook.Steps
 {
     class ScrollStep : KeyModifiedStep
     {
@@ -37,7 +37,7 @@ namespace Captura.Models
                 (above, below) = (below, above);
             }
 
-            Editor.DrawArrow(above, below, _settings.BorderColor, r / 2);
+            Editor.DrawArrow(above, below, _settings.BorderColor, r / 4f);
 
             base.Draw(Editor, PointTransform);
         }

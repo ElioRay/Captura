@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Captura.Video;
 
-namespace Captura.Models
+namespace Captura.MouseKeyHook
 {
     public class KeyOverlay : IOverlay
     {
@@ -164,7 +165,7 @@ namespace Captura.Models
             {
                 if (_records.Last?.Display == display)
                 {
-                    _records.Last = new RepeatKeyRecord(record);
+                    _records.Last = new RepeatKeyRecord(record, _settings);
                 }
                 else if (_records.Last is RepeatKeyRecord repeat && repeat.Repeated.Display == display)
                 {
@@ -218,7 +219,7 @@ namespace Captura.Models
             }
             else if (_records.Last is KeyRecord keyRecord && keyRecord.Display == display)
             {
-                _records.Last = new RepeatKeyRecord(record);
+                _records.Last = new RepeatKeyRecord(record, _settings);
             }
             else if (_records.Last is RepeatKeyRecord repeatRecord && repeatRecord.Repeated.Display == display)
             {

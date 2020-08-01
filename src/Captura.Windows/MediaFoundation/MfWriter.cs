@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Captura;
 using Captura.Audio;
-using Captura.Models;
+using Captura.Native;
+using Captura.Video;
+using Captura.Windows.DirectX;
+using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.MediaFoundation;
 using Device = SharpDX.Direct3D11.Device;
 
-namespace DesktopDuplication
+namespace Captura.Windows.MediaFoundation
 {
     public class MfWriter : IVideoFileWriter
     {
@@ -215,7 +217,16 @@ namespace DesktopDuplication
             lock (_syncLock)
             {
                 _disposed = true;
-                _writer.Finalize();
+                
+                const int noSamplesProcessedHResult = unchecked((int) 0xC00D4A44);
+
+                try
+                {
+                    _writer.Finalize();
+                }
+                // This error happens if recording is stopped before any samples are written
+                catch (SharpDXException e) when (e.HResult == noSamplesProcessedHResult) { }
+
                 _writer.Dispose();
 
                 _copyTexture.Dispose();

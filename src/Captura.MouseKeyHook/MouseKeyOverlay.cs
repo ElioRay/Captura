@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using Captura.Video;
 
-namespace Captura.Models
+namespace Captura.MouseKeyHook
 {
     /// <summary>
     /// Draws Mouse Clicks and/or Keystrokes on an Image.
@@ -12,8 +13,9 @@ namespace Captura.Models
         #region Fields
         readonly IMouseKeyHook _hook;
         readonly KeystrokesSettings _keystrokesSettings;
-        readonly IOverlay _mouseClickOverlay;
-        readonly IOverlay _keyOverlay;
+        readonly IOverlay _mouseClickOverlay,
+            _keyOverlay,
+            _scrollOverlay;
 
         readonly KeymapViewModel _keymap;
         readonly TextWriter _textWriter;
@@ -34,6 +36,7 @@ namespace Captura.Models
 
             _hook = Hook;
             _mouseClickOverlay = new MouseClickOverlay(_hook, MouseClickSettings);
+            _scrollOverlay = new ScrollOverlay(_hook, MouseClickSettings);
 
             if (KeystrokesSettings.SeparateTextFile)
             {
@@ -75,6 +78,7 @@ namespace Captura.Models
         public void Draw(IEditableFrame Editor, Func<Point, Point> Transform = null)
         {
             _mouseClickOverlay?.Draw(Editor, Transform);
+            _scrollOverlay?.Draw(Editor, Transform);
 
             _keyOverlay?.Draw(Editor, Transform);
         }
@@ -87,6 +91,7 @@ namespace Captura.Models
             _hook?.Dispose();
 
             _mouseClickOverlay?.Dispose();
+            _scrollOverlay?.Dispose();
             _keyOverlay?.Dispose();
 
             _textWriter?.Dispose();

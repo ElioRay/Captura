@@ -1,6 +1,6 @@
-﻿using Captura.Models;
+﻿using Captura.Video;
 
-namespace Captura
+namespace Captura.MouseKeyHook
 {
     public class KeystrokesSettings : TextOverlaySettings
     {
@@ -25,6 +25,12 @@ namespace Captura
         public int HistorySpacing
         {
             get => Get(10);
+            set => Set(value);
+        }
+
+        public bool ShowRepeatCounter
+        {
+            get => Get(true);
             set => Set(value);
         }
 
